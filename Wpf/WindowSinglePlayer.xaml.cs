@@ -89,9 +89,27 @@ namespace Wpf
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
+
+
+
+            MessageBoxResult sure = MessageBox.Show("?בטוח/ה רוצה לחזור לתפריט הראשי", "תפריט ראשי", MessageBoxButton.YesNo);
+            if (sure == MessageBoxResult.Yes)
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+            }
+            else if (sure == MessageBoxResult.No)
+            {
+
+                // Do something else
+            }
+
+            ///////////////////////////////////////////////
+          //  MainWindow mainWindow = new MainWindow();
+          //  mainWindow.Show();
+            ///////////////////////////////////
+          //  this.Close();
         }
 
         public static void updateName(TextBox txtMazeName)
