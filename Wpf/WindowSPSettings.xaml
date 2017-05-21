@@ -1,0 +1,40 @@
+﻿<Window x:Class="Wpf.WindowSPSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf"
+        mc:Ignorable="d"
+        Title="SPSettings" Height="300" Width="300">
+    <Grid TextBlock.FontSize="14" HorizontalAlignment="Right" Width="292">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="150"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="Padding" Value="3"/>
+                <Setter Property="Margin" Value="3"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Padding" Value="3"/>
+                <Setter Property="Margin" Value="3"/>
+            </Style>
+        </Grid.Resources>
+        <TextBlock Margin="10,14,-4,42" Grid.Row="0" Grid.RowSpan="2">Maze name:</TextBlock>
+        <TextBox x:Name="txtMazeName" Text="{Binding MazeName}" Margin="0,16,35,19" Grid.Row="0" Grid.Column="1" TextChanged="txtMazeName_TextChanged"/>
+        <TextBlock Margin="10,13,-4,8" Grid.Row="1">Maze rows:</TextBlock>
+        <TextBox x:Name="txtRows" Text="{Binding MazeRows}" Margin="0,16,35,19" Grid.Row="1" Grid.Column="1"/>
+        <TextBlock Margin="10,16,-4,27" Grid.Row="2" Grid.RowSpan="2">Maze columns:</TextBlock>
+        <TextBox x:Name="txtCols" Text="{Binding MazeCols}" Margin="0,16,35,19" Grid.Row="2" Grid.Column="1"/>
+        <Button x:Name="btnStart" HorizontalAlignment="Center" Margin="98,23,98,0"
+                Padding="5" Click="btnStart_Click" RenderTransformOrigin="0.409,8.493" Width="104" Grid.Row="3" Grid.ColumnSpan="2">OK</Button>
+    </Grid>
+</Window>
