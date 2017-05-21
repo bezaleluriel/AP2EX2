@@ -47,7 +47,12 @@ namespace Wpf
             set { SetValue(RowsProperty, value); }
         }
 
-
+        /// <summary>
+        /// Gets or sets the cols.
+        /// </summary>
+        /// <value>
+        /// The cols.
+        /// </value>
         public int Cols
         {
             get { return (int)GetValue(ColsProperty); }
