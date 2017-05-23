@@ -1,4 +1,5 @@
 ﻿using MazeLib;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,14 +37,13 @@ namespace Wpf
 
         public Maze MazeInStr
         {
-            get { return (Maze)GetValue(MazeProperty); }
-            set
-            {
-                SetValue(MazeProperty, value);
-            }
+            get { return (Maze) GetValue(MazeProperty); }
+            set { SetValue(MazeProperty, value); }
         }
-        public int Rows {
-            get { return (int)GetValue(RowsProperty); }
+
+        public int Rows
+        {
+            get { return (int) GetValue(RowsProperty); }
             set { SetValue(RowsProperty, value); }
         }
 
@@ -55,7 +55,7 @@ namespace Wpf
         /// </value>
         public int Cols
         {
-            get { return (int)GetValue(ColsProperty); }
+            get { return (int) GetValue(ColsProperty); }
             set { SetValue(ColsProperty, value); }
         }
 
@@ -64,7 +64,9 @@ namespace Wpf
             get { return GetValue(SolutionInStrProperty).ToString(); }
             set { SetValue(SolutionInStrProperty, value); }
         }
+
         Position startPosition;
+
         public Position StartPosition
         {
             get { return startPosition; }
@@ -72,6 +74,7 @@ namespace Wpf
         }
 
         Position endPosition;
+
         public Position EndPosition
         {
             get { return endPosition; }
@@ -79,20 +82,22 @@ namespace Wpf
         }
 
         Position currentPosition;
+
         public Position CurrentPosition
         {
             get { return currentPosition; }
             set { currentPosition = value; }
         }
 
-        
+
         private string[,] coolorArray;
+
         public void drawBoard()
         {
             currentPosition = MazeInStr.InitialPos;
             int x = Rows;
-            int y = Cols;           
-            rectArray = new Rectangle[x,y];
+            int y = Cols;
+            rectArray = new Rectangle[x, y];
             coolorArray = new string[x, y];
             string dummy = null;
             dummy = MazeInStr.ToString();
@@ -104,11 +109,11 @@ namespace Wpf
 
             int i, j;
             int counter = 0;
-            int sizeOfBlock = Math.Min(300/Rows, 300/Cols);
+            int sizeOfBlock = Math.Min(300 / Rows, 300 / Cols);
             for (i = 0; i < Rows; i++)
             {
-                for (j = 0 ; j < Cols; j++)
-                {   
+                for (j = 0; j < Cols; j++)
+                {
                     Rectangle rect = new Rectangle();
                     rect.Height = sizeOfBlock;
                     rect.Width = sizeOfBlock;
@@ -132,13 +137,13 @@ namespace Wpf
                         case '#':
                             rectArray[i, j].Fill = new SolidColorBrush(Colors.Red);
                             coolorArray[i, j] = "Red";
-                            endPosition = new Position(i,j);
+                            endPosition = new Position(i, j);
                             break;
                         case '\n':
                             break;
                         default:
                             Console.WriteLine("error in switch");
-                            break;                      
+                            break;
                     }
                     myCanvas.Children.Add(rectArray[i, j]);
                     Canvas.SetLeft(rectArray[i, j], (j * sizeOfBlock));
@@ -164,26 +169,30 @@ namespace Wpf
                 myCanvas.Dispatcher.Invoke(delegate { }, DispatcherPriority.Render);
                 switch (SolutionInStr[i])
                 {
-                    case '0'://left
-                        rectArray[currentPosition.Row, currentPosition.Col].Fill = new SolidColorBrush(Colors.AntiqueWhite);
+                    case '0': //left
+                        rectArray[currentPosition.Row, currentPosition.Col].Fill =
+                            new SolidColorBrush(Colors.AntiqueWhite);
                         currentPosition.Col -= 1;
                         rectArray[currentPosition.Row, currentPosition.Col].Fill = new ImageBrush(joint);
                         myCanvas.Dispatcher.Invoke(delegate { }, DispatcherPriority.Render);
                         break;
-                    case '1'://right
-                        rectArray[currentPosition.Row, currentPosition.Col].Fill = new SolidColorBrush(Colors.AntiqueWhite);
+                    case '1': //right
+                        rectArray[currentPosition.Row, currentPosition.Col].Fill =
+                            new SolidColorBrush(Colors.AntiqueWhite);
                         currentPosition.Col += 1;
                         rectArray[currentPosition.Row, currentPosition.Col].Fill = new ImageBrush(joint);
                         myCanvas.Dispatcher.Invoke(delegate { }, DispatcherPriority.Render);
                         break;
-                    case '2'://up
-                        rectArray[currentPosition.Row, currentPosition.Col].Fill = new SolidColorBrush(Colors.AntiqueWhite);
+                    case '2': //up
+                        rectArray[currentPosition.Row, currentPosition.Col].Fill =
+                            new SolidColorBrush(Colors.AntiqueWhite);
                         currentPosition.Row -= 1;
                         rectArray[currentPosition.Row, currentPosition.Col].Fill = new ImageBrush(joint);
                         myCanvas.Dispatcher.Invoke(delegate { }, DispatcherPriority.Render);
                         break;
-                    case '3'://down
-                        rectArray[currentPosition.Row, currentPosition.Col].Fill = new SolidColorBrush(Colors.AntiqueWhite);
+                    case '3': //down
+                        rectArray[currentPosition.Row, currentPosition.Col].Fill =
+                            new SolidColorBrush(Colors.AntiqueWhite);
                         currentPosition.Row += 1;
                         rectArray[currentPosition.Row, currentPosition.Col].Fill = new ImageBrush(joint);
                         myCanvas.Dispatcher.Invoke(delegate { }, DispatcherPriority.Render);
@@ -196,36 +205,41 @@ namespace Wpf
         //we need to make there properties a dependency property because
         //user control doesnt do it automaticly and we need them to be dependency for the binding.
 
-        public static readonly DependencyProperty RowsProperty = 
-            DependencyProperty.Register("Rows", typeof(int), typeof(mazeBoard), new PropertyMetadata(onRowsPropertyChanged));
+        public static readonly DependencyProperty RowsProperty =
+            DependencyProperty.Register("Rows", typeof(int), typeof(mazeBoard),
+                new PropertyMetadata(onRowsPropertyChanged));
 
         public static readonly DependencyProperty ColsProperty =
-        DependencyProperty.Register("Cols", typeof(int), typeof(mazeBoard), new PropertyMetadata(onColsPropertyChanged));
+            DependencyProperty.Register("Cols", typeof(int), typeof(mazeBoard),
+                new PropertyMetadata(onColsPropertyChanged));
 
         public static readonly DependencyProperty MazeProperty =
-        DependencyProperty.Register("MazeInStr", typeof(Maze), typeof(mazeBoard), new PropertyMetadata(onMazeInStrPropertyChanged));
+            DependencyProperty.Register("MazeInStr", typeof(Maze), typeof(mazeBoard),
+                new PropertyMetadata(onMazeInStrPropertyChanged));
 
         public static readonly DependencyProperty SolutionInStrProperty =
-        DependencyProperty.Register("SolutionInStr", typeof(string), typeof(mazeBoard), new PropertyMetadata(onSolutionInStrPropertyChanged));
+            DependencyProperty.Register("SolutionInStr", typeof(string), typeof(mazeBoard),
+                new PropertyMetadata(onSolutionInStrPropertyChanged));
 
         private static void onColsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             //((mazeBoard)d).drawBoard();
         }
+
         private static void onRowsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             //((mazeBoard)d).drawBoard();
         }
+
         private static void onMazeInStrPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-           // ((mazeBoard)d).drawBoard();
+            // ((mazeBoard)d).drawBoard();
         }
+
         private static void onSolutionInStrPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((mazeBoard)d).drawMovingSolution();
+            ((mazeBoard) d).drawMovingSolution();
         }
-
-
 
 
         private void MazeBoard_OnLoaded(object sender, RoutedEventArgs e)
@@ -238,7 +252,7 @@ namespace Wpf
         {
             switch (e.Key)
             {
-                case Key.Up :
+                case Key.Up:
                     try
                     {
                         if (coolorArray[currentPosition.Row - 1, currentPosition.Col] == "Black")
@@ -267,7 +281,6 @@ namespace Wpf
                         }
                         else if (coolorArray[currentPosition.Row + 1, currentPosition.Col] == "Red")
                         {
-
                             System.Windows.MessageBox.Show("You Won!");
                         }
                     }
@@ -288,7 +301,6 @@ namespace Wpf
                         }
                         else if (coolorArray[currentPosition.Row, currentPosition.Col + 1] == "Red")
                         {
-
                             System.Windows.MessageBox.Show("You Won!");
                         }
                     }
@@ -309,9 +321,7 @@ namespace Wpf
                         }
                         else if (coolorArray[currentPosition.Row, currentPosition.Col - 1] == "Red")
                         {
-
                             System.Windows.MessageBox.Show("You Won!");
-
                         }
                     }
                     catch (System.IndexOutOfRangeException)
@@ -329,13 +339,11 @@ namespace Wpf
         {
             rectArray[currentPosition.Row, currentPosition.Col].Fill = new SolidColorBrush(Colors.AntiqueWhite);
             currentPosition = startPosition;
-             rectArray[startPosition.Row, startPosition.Col].Fill = new ImageBrush(joint);
+            rectArray[startPosition.Row, startPosition.Col].Fill = new ImageBrush(joint);
             rectArray[endPosition.Row, endPosition.Col].Fill = new SolidColorBrush(Colors.Red);
             myCanvas.Dispatcher.Invoke(delegate { }, DispatcherPriority.Render);
-
         }
-
-       
     }
 }
 
+}

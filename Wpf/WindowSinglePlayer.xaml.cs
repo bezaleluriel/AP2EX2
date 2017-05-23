@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,9 @@ namespace Wpf
 
     public partial class WindowSinglePlayer : Window
     {
-        ViewModelSinglePlayer VM;
+        
+            ViewModelSinglePlayer VM;
+
         public WindowSinglePlayer()
         {
             InitializeComponent();
@@ -39,9 +42,10 @@ namespace Wpf
 
 
         }
-
+        
         private static string str;
         string isSolvePressedToThisName;
+
         private void Solve_Button_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("solve button pressed");
@@ -72,7 +76,8 @@ namespace Wpf
         {
             // System.Windows.MessageBox.Show("are you sure you want restart?");
             //VM.Restart();
-            MessageBoxResult m = MessageBox.Show("Are you sure you want a restart?", "restart game?", MessageBoxButton.YesNo);
+            MessageBoxResult m = MessageBox.Show("Are you sure you want a restart?", "restart game?",
+                MessageBoxButton.YesNo);
             if (m == MessageBoxResult.Yes)
             {
                 //  mazeBoard.CurrentPosition = mazeBoard.StartPosition;
@@ -92,7 +97,8 @@ namespace Wpf
 
 
 
-            MessageBoxResult sure = MessageBox.Show("?בטוח/ה רוצה לחזור לתפריט הראשי", "תפריט ראשי", MessageBoxButton.YesNo);
+            MessageBoxResult sure = MessageBox.Show("?בטוח/ה רוצה לחזור לתפריט הראשי", "תפריט ראשי",
+                MessageBoxButton.YesNo);
             if (sure == MessageBoxResult.Yes)
             {
                 MainWindow mainWindow = new MainWindow();
@@ -106,10 +112,10 @@ namespace Wpf
             }
 
             ///////////////////////////////////////////////
-          //  MainWindow mainWindow = new MainWindow();
-          //  mainWindow.Show();
+            //  MainWindow mainWindow = new MainWindow();
+            //  mainWindow.Show();
             ///////////////////////////////////
-          //  this.Close();
+            //  this.Close();
         }
 
         public static void updateName(TextBox txtMazeName)
@@ -120,5 +126,9 @@ namespace Wpf
             System.Console.WriteLine("in the single player:" + str);
 
         }
+
+        
     }
 }
+
+
